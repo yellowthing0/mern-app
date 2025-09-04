@@ -24,6 +24,29 @@ Repository: **doananhtingithub40102/mern-app**
 
 ---
 
+## Prerequisites
+```
+# Update system
+sudo apt update && sudo apt upgrade -y
+
+# Install Docker + Compose plugin
+sudo apt install -y docker.io docker-compose-plugin
+
+# Allow Docker without sudo (optional)
+sudo usermod -aG docker $USER
+newgrp docker
+
+# Install Minikube + kubectl
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+sudo install kubectl /usr/local/bin/kubectl
+
+```
+
+---
+
 ## Milestone Checklist
 Progress through the assignment is tracked via the following milestones (✅ = completed, ⬜ = pending):
 
@@ -64,4 +87,28 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 ### 3. compose first time
 ```
 sudo docker compose up -d --build
+```
+
+### 4. Start Minikube
+```
+minikube start --driver=docker --disk-size=20g
+```
+
+### 5. Point Docker to Minikube
+```
+eval $(minikube docker-env)
+
+docker build -t mern-backend:dev -f server/Dockerfile server
+docker build -t mern-frontend:dev -f client/Dockerfile client
+```
+### 6. Create TLS secret for Nginx
+```
+kubectl create secret generic nginx-certs \
+  --from-file=nginx/certs/selfsigned.crt \
+  --from-file=nginx/certs/selfsigned.key
+```
+
+### 7. Apply Kubernetes manifests
+```
+kubectl apply -f kubernetes/
 ```
