@@ -1,106 +1,67 @@
-# Group 9 Basic MERN App
+# Secure Development Operations Assignment – MERN App
 
-![my picture](https://doananhtingithub40102.github.io/MyData/mern/mypicture.png)
+A full-stack [MERN](https://www.mongodb.com/mern-stack) application, originally designed to manage employee information, now adapted for the **2808ICT Secure Development Operations** assignment.  
+This repository demonstrates containerisation, DevOps security practices, and deployment on cloud infrastructure.
 
-A full-stack [MERN](https://www.mongodb.com/mern-stack) application for managing information of employees.
+---
 
-## About the project
+## Team Members
+- Jenjira Kongpong – s5393441  
+- Wen-Dian Lin (Stanley) – s5201143  
+- Niyonkuru Justus Ndizeye – s5341234  
+- Anthony Le – s5260399  
 
-This is a full-stack MERN application that manages the basic information of employees. The app uses an employee database from the MongoDB Atlas database and then display it using a React.
+Project Number: **2 (MERN App)**  
+Repository: **doananhtingithub40102/mern-app**
+
+---
 
 ## Tech Stack
+**Client:** React, Bootstrap  
+**Server:** Node.js, Express.js  
+**Database:** MongoDB  
+**DevOps:** Docker, Docker Compose, Nginx (HTTPS), Kubernetes (Minikube), OWASP ZAP  
 
-**Client:** React, Bootstrap
+---
 
-**Server:** NodeJS, ExpressJS
+## Milestone Checklist
+Progress through the assignment is tracked via the following milestones (✅ = completed, ⬜ = pending):
 
-**Database:** MongoDB
+- [✅] **M1** – Clone project, set up local dev environment, verify app runs (25/8/2025)  
+- [✅] **M2** – Create Dockerfiles for frontend & backend (30/8/2025)  
+- [✅] **M3** – Configure MongoDB & Mongo Express containers (2/9/2025)  
+- [✅] **M4** – Write `docker-compose.yml` for 4-container setup (5/9/2025)  
+- [✅] **M5** – Add Nginx reverse proxy with HTTPS (8/9/2025)  
+- [⬜] **M6** – Test docker-compose integration (logs, data add/update) (10/9/2025)  
+- [⬜] **M7** – Create Kubernetes manifests (Deployment, Service, Ingress) (15/9/2025)  
+- [⬜] **M8** – Deploy on Minikube, verify HTTPS & service connectivity (18/9/2025)  
+- [⬜] **M9** – Perform OWASP ZAP automated scan (25/9/2025)  
+- [⬜] **M10** – Perform manual security testing (28/9/2025)  
+- [⬜] **M11** – Analyse 4 vulnerabilities (different CWE codes) (3/10/2025)  
+- [⬜] **M12** – Implement fixes & document remediation steps (6/10/2025)  
+- [⬜] **M13** – Write Task 2 & 3 reports (PDF) (8/10/2025)  
+- [⬜] **M14** – Record 5-min individual video statements (9/10/2025)  
 
-## Run Locally
+---
 
-Clone the project
+## Running Locally
 
-```bash
-  git clone https://github.com/doananhtingithub40102/mern-app.git
+### 1. Clone the project
+```
+git clone https://github.com/doananhtingithub40102/mern-app.git
+cd mern-app
 ```
 
-Go to the project directory
-
-```bash
-  cd mern-app
+### 2. Re-generate certs
+```
+mkdir -p nginx/certs
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
+  -keyout nginx/certs/selfsigned.key \
+  -out nginx/certs/selfsigned.crt \
+  -subj "/CN=localhost"
 ```
 
-Create an Atlas URI connection parameter in `server/.env` with your Atlas URI:
+### 3. compose first time
 ```
-ATLAS_URI="mongodb+srv://<username>:<password>@cluster0.6cgz2s1.mongodb.net/?retryWrites=true&w=majority"
-PORT=5000
+sudo docker compose up -d --build
 ```
-
-Create an hostname on server enviroment variable in `client/.env` with your hostname on server:
-```
-REACT_APP_YOUR_HOSTNAME="http://localhost:5000"
-```
-
-Install dependencies
-
-```bash
-  cd server
-  npm install
-```
-
-```bash
-  cd client
-  npm install
-```
-
-Start the server
-
-```bash
-  cd server
-  node server.js
-```
-Start the Client
-
-```bash
-  cd client
-  npm start
-```
-  
-
-## Features in the project
-
-- The user can **create** the information of a employee, and managing it.
-
-- **Displaying** the information of employees, including the name, position, and level of the employee.
-
-- Includes **Update** and **Delete** actions.
-
-## Learn More
-
-**FrontEnd**
-
-* To learn React, check out the [React documentation](https://reactjs.org/).
-
-* You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-* Get started with [Bootstrap](https://www.w3schools.com/bootstrap5/index.php), the world's most popular framework for building responsive, mobile-first websites.
-
-**BackEnd**
-
-* [Node.js Tutorial](https://www.w3schools.com/nodejs/default.asp)
-
-* [ExpressJS Tutorial](https://www.tutorialspoint.com/expressjs/index.htm)
-
-**Database**
-
-* [MongoDB Tutorial](https://www.w3schools.com/mongodb/)
-
-* Follow the [Get Started with MongoDB Atlas](https://www.mongodb.com/docs/atlas/getting-started/) guide to create an Atlas cluter, connecting to it, and loading your data.
-
-**Fullstack**
-
-* Learn all about the [MERN stack](https://www.mongodb.com/languages/mern-stack-tutorial) in this step-by-step guide on how to use it by developing a simple CRUD application from scratch.
-
-## Live app
-
-<a href="https://employee-manager-tindoan-xu3i.onrender.com/">Live fullstack MERN app</a>
