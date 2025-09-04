@@ -45,6 +45,17 @@ sudo install kubectl /usr/local/bin/kubectl
 
 ```
 
+## Install guide
+
+## Inbound Rules
+### Docker Compose with Nginx (your classic setup)
+TCP 80 (HTTP)
+TCP 443 (HTTPS)
+TCP 8081 (Mongo Express)
+### Kubernetes — kubectl port-forward
+TCP 8080 (maps to service port 80)
+TCP 8443 (maps to service port 443)
+
 ---
 
 ## Milestone Checklist
@@ -71,7 +82,7 @@ Progress through the assignment is tracked via the following milestones (✅ = c
 
 ### 1. Clone the project
 ```
-git clone https://github.com/doananhtingithub40102/mern-app.git
+git clone https://github.com/yellowthing0/mern-app.git
 cd mern-app
 ```
 
