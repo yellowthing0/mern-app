@@ -30,7 +30,7 @@ Repository: **doananhtingithub40102/mern-app**
 sudo apt update && sudo apt upgrade -y
 
 # Install Docker + Compose plugin
-sudo apt install -y docker.io docker-compose-plugin
+
 
 # Allow Docker without sudo (optional)
 sudo usermod -aG docker $USER
@@ -131,3 +131,19 @@ kubectl apply -f kubernetes/
 kubectl port-forward --address 0.0.0.0 svc/nginx-service 8080:80 8443:443
 ```
 
+### Testing
+```
+sudo docker ps
+
+# Minikube status
+minikube status
+
+# Cluster info
+kubectl get nodes
+kubectl get pods
+kubectl get svc
+
+
+curl -I  http://<EC2_PUBLIC_IP> 
+curl -Ik https://<EC2_PUBLIC_IP>:8443
+```
