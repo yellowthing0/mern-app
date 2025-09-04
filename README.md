@@ -56,8 +56,8 @@ Progress through the assignment is tracked via the following milestones (✅ = c
 - [✅] **M4** – Write `docker-compose.yml` for 4-container setup (5/9/2025)  
 - [✅] **M5** – Add Nginx reverse proxy with HTTPS (8/9/2025)  
 - [⬜] **M6** – Test docker-compose integration (logs, data add/update) (10/9/2025)  
-- [⬜] **M7** – Create Kubernetes manifests (Deployment, Service, Ingress) (15/9/2025)  
-- [⬜] **M8** – Deploy on Minikube, verify HTTPS & service connectivity (18/9/2025)  
+- [✅] **M7** – Create Kubernetes manifests (Deployment, Service, Ingress) (4/9/2025)  
+- [✅] **M8** – Deploy on Minikube, verify HTTPS & service connectivity (4/9/2025)  
 - [⬜] **M9** – Perform OWASP ZAP automated scan (25/9/2025)  
 - [⬜] **M10** – Perform manual security testing (28/9/2025)  
 - [⬜] **M11** – Analyse 4 vulnerabilities (different CWE codes) (3/10/2025)  
@@ -67,7 +67,7 @@ Progress through the assignment is tracked via the following milestones (✅ = c
 
 ---
 
-## Running Locally
+## Running Using Docker
 
 ### 1. Clone the project
 ```
@@ -89,26 +89,34 @@ openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 sudo docker compose up -d --build
 ```
 
-### 4. Start Minikube
+## Running Using Minikube
+
+### 1. Start Minikube
 ```
 minikube start --driver=docker --disk-size=20g
 ```
 
-### 5. Point Docker to Minikube
+### 2. Point Docker to Minikube
 ```
 eval $(minikube docker-env)
 
 docker build -t mern-backend:dev -f server/Dockerfile server
 docker build -t mern-frontend:dev -f client/Dockerfile client
 ```
-### 6. Create TLS secret for Nginx
+### 3. Create TLS secret for Nginx
 ```
 kubectl create secret generic nginx-certs \
   --from-file=nginx/certs/selfsigned.crt \
   --from-file=nginx/certs/selfsigned.key
 ```
 
-### 7. Apply Kubernetes manifests
+### 4. Apply Kubernetes manifests
 ```
 kubectl apply -f kubernetes/
 ```
+
+### 4. Portforward Public ip
+```
+kubectl port-forward --address 0.0.0.0 svc/nginx-service 8080:80 8443:443
+```
+
